@@ -43,6 +43,25 @@ window.FEATURED = [
     links: { github: "https://github.com/mazenkarim20033-arch/sentinel-predictive-maintenance", live: "https://mazenkarim20033-arch.github.io/sentinel-predictive-maintenance/" }
   },
   {
+    id: "hindsight",
+    status: "shipped",
+    title: "Hindsight: a sales forecast you can check before you trust it",
+    tagline: "A sales-forecast dashboard where every forecast carries a measured track record. It replays the past so each earlier forecast only sees what was known then, and a simple rule is always in the race. English and right-to-left Arabic.",
+    metric: "7.5% average miss against 9.8% for a simple weekday rule (10 US stores)",
+    tags: ["Python", "LightGBM", "Conformal prediction", "SHAP", "FastAPI", "React + TypeScript", "Arabic / RTL"],
+    pipeline: ["Daily sales file (CSV or Excel)", "Importer: Arabic headers, cleaning report", "Rolling replay: past dates only", "LightGBM vs simple rules, conformal ranges", "Dashboard, stock planner, holiday effects"],
+    sections: [
+      { h: "Problem", t: "Forecasting tools show one number and a label that says AI, and a shop owner cannot tell whether to trust it. I wanted the answer to a narrower question: if I had used this forecast over the last two years, how often would it have been right, and would a simple rule have done as well? The idea started from SENTINEL, which needs sensor data most factories do not record. Sales history is something almost every business has." },
+      { h: "What it does", t: "A dashboard forecasts the next days per store or item with a range, a plain-language reason for each forecast and alerts for unusual days. A Stock planner replays the past to show how often each ordering rule would have run short or left stock over. Holiday effects measures how much sales really moved on Ramadan, the Eids and other holidays in the data, and says when there is no clear effect. A Replay lab lets you watch the past again with the future hidden. The importer reads messy files: Arabic or English headers, Arabic digits, day-first dates, one row per receipt." },
+      { h: "Key decisions", t: "Every replay date hands the forecaster a copy of the history up to that date and nothing else, with tests that change later data and check earlier forecasts do not move. Ranges come from the same method's earlier errors that were already known at each date. The best method so far is chosen only from finished outcomes. The simple weekday rule is always compared, and if it wins the scorecard says so. Loading your own data is owner-only (a key, or the same computer), so the public demo cannot be used to upload files." },
+      { h: "Measured results", t: "On the public M5 Walmart data, scored over the last 730 days with nothing tuned: at single-store level the learning model's average miss was 7.5% of sales against 9.8% for the best simple rule (gain 2.3 points, 95% interval 2.0 to 2.5). The 80% ranges held on 79 to 84% of days and the 90% ranges on 89 to 93%. Alerts at the 98% level caught 82% of injected one-day changes with 2.0% false alarms. In the stock backtest, ordering the best guess ran short in 49% of weeks, while ordering enough to have covered 90% of earlier weeks ran short in 11%, at the cost of 4.3% of the order unsold." },
+      { h: "What went wrong", t: "My first replay used every 7th day, so every replay date was a Sunday and one baseline looked far worse than it is; a 5-day step and a test fixed it. A test found a bug in a baseline on short histories. Loading the sample showed my importer reading store names like CA_1 as numbers. My first stock-planner rule added up daily upper limits and flattered itself by never running short, so I replaced it with a measured one. The first interface looked like a template, with the replay at the centre, so I rebuilt it as a dashboard with the replay as one feature among several." },
+      { h: "Limits", t: "The data is US retail, so nothing here is evidence about Egyptian shops. The Egyptian calendar is built and tested, but only shown to work on a labelled synthetic dataset with a built-in Ramadan effect; on the US sample its holidays show no clear effect, as they should. The learning model ran with default settings, so its gain is not an upper bound, and small day-to-day changes (about 30%) are mostly invisible to a daily alert. Daily data only, one business per file, no prices or promotions. The Arabic text has not been reviewed by a native speaker. The public demo plays back recorded results and cannot load files." },
+      { h: "Try it", t: "Open the live demo and start on the dashboard, then try the Stock planner and Holiday effects, or hover over any chart to read the measurements. The repository has a case study, 128 automated tests (Python and front end), and an accessibility audit of every screen in light, dark and Arabic." }
+    ],
+    links: { github: "https://github.com/mazenkarim20033-arch/hindsight-forecast-monitoring", live: "https://mazenkarim20033-arch.github.io/hindsight-forecast-monitoring/" }
+  },
+  {
     id: "azure-agent",
     status: "shipped",
     title: "Procurement AI Agent on Microsoft Azure",
