@@ -46,7 +46,8 @@
         ${links.live ? `<a class="btn btn-primary" href="${esc(links.live)}" target="_blank" rel="noopener">Live demo</a>` : ""}
       </div>` : ""}`;
     modal.showModal();
-    modal.scrollTop = 0;
+    body.scrollTop = 0;
+    body.focus(); // arrow keys and Page Down scroll the case study straight away
     history.replaceState(null, "", "#" + id);
   }
 
