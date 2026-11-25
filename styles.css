@@ -116,14 +116,17 @@ h1 {
 .block-head h2, .contact h2 { font-size: 1.7rem; letter-spacing: -0.02em; margin: 0 0 6px; }
 .block-head p { color: var(--muted); margin: 0; }
 
-.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-#featured { grid-template-columns: 1fr; align-items: start; }
-@media (min-width: 900px) { #featured { grid-template-columns: repeat(2, 1fr); } }
+.grid { display: grid; gap: 28px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+#featured { grid-template-columns: 1fr; align-items: stretch; }
+@media (min-width: 900px) {
+  #featured { grid-template-columns: repeat(2, 1fr); }
+  #featured .card:last-child:nth-child(odd) { grid-column: 1 / -1; } /* a lone last card spans the row instead of leaving a gap */
+}
 
 .card {
-  position: relative; display: flex; flex-direction: column; gap: 10px;
+  position: relative; display: flex; flex-direction: column; gap: 14px;
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 22px; transition: border-color .2s, transform .2s, background .2s;
+  padding: 28px; transition: border-color .2s, transform .2s, background .2s;
 }
 .card:hover { border-color: var(--accent); background: var(--surface-2); transform: translateY(-3px); }
 .card h3 { margin: 4px 0 0; font-size: 1.15rem; letter-spacing: -0.01em; }
@@ -131,7 +134,8 @@ h1 {
 .card-hit { position: absolute; inset: 0; border: 0; background: none; cursor: pointer; border-radius: var(--radius); }
 .card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .tags { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
-.card-actions { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.card-actions { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 10px; } /* buttons sit at the bottom of every card, so a row of cards lines up */
+.card-actions ~ .more { margin-top: 0; padding-top: 4px; }
 .btn-sm { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; font-size: 0.88rem; }
 .btn-live { box-shadow: 0 8px 22px -8px rgba(94, 234, 212, 0.65); animation: live-ring 2.8s ease-out infinite; }
 .btn-live:hover { box-shadow: 0 10px 28px -6px rgba(94, 234, 212, 0.85); animation: none; }
